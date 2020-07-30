@@ -26,7 +26,6 @@ BuildRequires:  golang-github-msteinert-pam-devel
 BuildRequires:  qt5-linguist
 BuildRequires:  dtkcore-devel >= 5.1
 BuildRequires:  dde-dock-devel
-#Requires:       deepin-control-center
 Requires:       dde-daemon
 Requires:       startdde
 
@@ -34,7 +33,6 @@ Requires:       lightdm
 Requires(post): sed
 Provides:       lightdm-deepin-greeter = %{version}-%{release}
 Provides:       lightdm-greeter = 1.2
-#Provides:       deepin-notifications = %{version}-%{release}
 Provides:       deepin-notifications = %{version}-%{release}
 Obsoletes:      deepin-notifications < %{version}-%{release}
 
@@ -52,7 +50,6 @@ This project include those sub-project:
 
 %prep
 %setup -q -n %{name}-%{version}
-#sed -i 's|default_background.jpg|default.png|' widgets/fullscreenbackground.cpp boxframe/*.cpp
 sed -i 's|default_background.jpg|default.png|' widgets/fullscreenbackground.cpp
 sed -i 's|lib|libexec|' \
     misc/applications/deepin-toggle-desktop.desktop* \
@@ -84,23 +81,14 @@ sed -i "s|#greeter-session.*|greeter-session=lightdm-deepin-greeter|g" /etc/ligh
 %files
 %doc README.md
 %license LICENSE
-#%config(noreplace) %{_sysconfdir}/deepin/greeters.d/00-xrandr
-#%config(noreplace) %{_sysconfdir}/deepin/greeters.d/lightdm-deepin-greeter
 %{_bindir}/dde-*
 %{_bindir}/dmemory-warning-dialog
-#%{_bindir}/deepin-greeter
-#%{_bindir}/lightdm-deepin-greeter
 %{_libexecdir}/deepin-daemon/*
 %{_datadir}/%{name}/
-#%{_datadir}/applications/*.desktop
 %{_datadir}/icons/hicolor/*/apps/*
 %{_datadir}/dbus-1/services/*.service
-#%{_datadir}/xgreeters/lightdm-deepin-greeter.desktop
 %{_libdir}/dde-dock/plugins/system-trays/libnotifications.so
 
 %changelog
-* Mon Jul 06 2020 uoser <uoser@uniontech.com> - 5.1.0.11-2
-- Fix taskbar notifications are not available
-
-* Thu Jun 11 2020 uoser <uoser@uniontech.com> - 5.1.0.11
-- Update to 5.1.0.11
+* Thu Jul 30 2020 openEuler Buildteam <buildteam@openeuler.org> - 5.1.0.11-2
+- Package init
