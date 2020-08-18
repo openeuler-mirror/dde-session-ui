@@ -1,6 +1,6 @@
 Name:           dde-session-ui
 Version:        5.1.0.11
-Release:        2
+Release:        3
 Summary:        Deepin desktop-environment - Session UI module
 License:        GPLv3
 URL:            https://github.com/linuxdeepin/dde-session-ui
@@ -22,7 +22,6 @@ BuildRequires:  pkgconfig(Qt5Multimedia)
 BuildRequires:  pkgconfig(xcb-ewmh)
 BuildRequires:  pkgconfig(xcursor)
 BuildRequires:  pkgconfig(xtst)
-BuildRequires:  golang-github-msteinert-pam-devel
 BuildRequires:  qt5-linguist
 BuildRequires:  dtkcore-devel >= 5.1
 BuildRequires:  dde-dock-devel
@@ -90,5 +89,8 @@ sed -i "s|#greeter-session.*|greeter-session=lightdm-deepin-greeter|g" /etc/ligh
 %{_libdir}/dde-dock/plugins/system-trays/libnotifications.so
 
 %changelog
+* Tue Aug 18 2020 chenbo pan <panchenbo@uniontech.com> - 5.1.0.11-3
+- remove golang devel
+
 * Thu Jul 30 2020 openEuler Buildteam <buildteam@openeuler.org> - 5.1.0.11-2
 - Package init
