@@ -1,10 +1,10 @@
 Name:           dde-session-ui
-Version:        5.1.0.11
-Release:        3
+Version:        5.3.0.11
+Release:        1
 Summary:        Deepin desktop-environment - Session UI module
 License:        GPLv3
-URL:            https://github.com/linuxdeepin/dde-session-ui
-Source0:        %{name}_%{version}.orig.tar.xz	
+URL:            https://github.com/linuxdeepin/%{name}
+Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires:  gcc-c++
 BuildRequires:  deepin-gettext-tools
@@ -13,16 +13,11 @@ BuildRequires:  pkgconfig(dframeworkdbus)
 BuildRequires:  pkgconfig(gsettings-qt)
 BuildRequires:  pkgconfig(gtk+-2.0)
 BuildRequires:  pkgconfig(libsystemd)
-BuildRequires:  pkgconfig(Qt5Core)
-BuildRequires:  pkgconfig(Qt5DBus)
-BuildRequires:  pkgconfig(Qt5Svg)
-BuildRequires:  pkgconfig(Qt5Xml)
-BuildRequires:  pkgconfig(Qt5X11Extras)
-BuildRequires:  pkgconfig(Qt5Multimedia)
 BuildRequires:  pkgconfig(xcb-ewmh)
 BuildRequires:  pkgconfig(xcursor)
 BuildRequires:  pkgconfig(xtst)
-BuildRequires:  qt5-linguist
+BuildRequires:  pkgconfig(xext)
+BuildRequires:  qt5-devel
 BuildRequires:  dtkcore-devel >= 5.1
 BuildRequires:  dde-dock-devel
 Requires:       dde-daemon
@@ -58,6 +53,8 @@ sed -i 's|lib|libexec|' \
     dde-osd/dde-osd.pro \
     dde-welcome/com.deepin.dde.welcome.service \
     dde-welcome/dde-welcome.pro \
+    dde-bluetooth-dialog/dde-bluetooth-dialog.pro \
+    dde-touchscreen-dialog/dde-touchscreen-dialog.pro \
     dde-warning-dialog/com.deepin.dde.WarningDialog.service \
     dde-warning-dialog/dde-warning-dialog.pro \
     dde-offline-upgrader/dde-offline-upgrader.pro \
@@ -68,7 +65,7 @@ sed -i 's|/usr/lib/dde-dock|/usr/lib64/dde-dock|' dde-notification-plugin/notifi
 
 %build
 export PATH=%{_qt5_bindir}:$PATH
-%qmake_qt5 PREFIX=%{_prefix}
+%qmake_qt5 PREFIX=%{_prefix} PKGTYPE=rpm
 %make_build
 
 %install
@@ -86,9 +83,13 @@ sed -i "s|#greeter-session.*|greeter-session=lightdm-deepin-greeter|g" /etc/ligh
 %{_datadir}/%{name}/
 %{_datadir}/icons/hicolor/*/apps/*
 %{_datadir}/dbus-1/services/*.service
-%{_libdir}/dde-dock/plugins/system-trays/libnotifications.so
+%{_libdir}/dde-dock/plugins/libnotifications.so
+%{_prefix}/share/glib-2.0/schemas/com.deepin.dde.dock.module.notifications.gschema.xml
 
 %changelog
+* Tue Jul 20 2021 weidong <weidong@uniontech.com> - 5.3.0.11-1
+- Update 5.3.0.11
+
 * Tue Aug 18 2020 chenbo pan <panchenbo@uniontech.com> - 5.1.0.11-3
 - remove golang devel
 
