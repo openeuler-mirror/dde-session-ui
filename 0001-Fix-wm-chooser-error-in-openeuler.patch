@@ -1,0 +1,30 @@
+From a71fcac57c7e3e4247ed433f67f6bd5e8ca09d6e Mon Sep 17 00:00:00 2001
+From: weidong <weidong@uniontech.com>
+Date: Thu, 23 Sep 2021 21:32:32 +0800
+Subject: [PATCH] Fix wm-chooser error in openeuler
+
+Signed-off-by: weidong <weidong@uniontech.com>
+---
+ dde-wm-chooser/main.cpp | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/dde-wm-chooser/main.cpp b/dde-wm-chooser/main.cpp
+index c956566..01ea4d9 100644
+--- a/dde-wm-chooser/main.cpp
++++ b/dde-wm-chooser/main.cpp
+@@ -82,10 +82,10 @@ int main(int argc, char *argv[])
+     if (parser.isSet(config)) {
+         const DSysInfo::DeepinType DeepinType = DSysInfo::deepinType();
+         bool IsServerSystem = DSysInfo::DeepinServer == DeepinType;
+-        if (IsServerSystem) {
++        //if (IsServerSystem) {
+             selectNormalModel(parser.value(config));
+             return 0;
+-        }
++        //}
+ 
+         PropertyGroup *pg = new PropertyGroup();
+ 
+-- 
+2.20.1
+

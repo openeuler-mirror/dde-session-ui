@@ -1,10 +1,11 @@
 Name:           dde-session-ui
 Version:        5.3.0.11
-Release:        1
+Release:        2
 Summary:        Deepin desktop-environment - Session UI module
 License:        GPLv3
 URL:            https://github.com/linuxdeepin/%{name}
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
+Patch0:		0001-Fix-wm-chooser-error-in-openeuler.patch	
 
 BuildRequires:  gcc-c++
 BuildRequires:  deepin-gettext-tools
@@ -43,7 +44,7 @@ This project include those sub-project:
 - dde-hotzone: User interface of setting hot zone.
 
 %prep
-%setup -q -n %{name}-%{version}
+%autosetup -p1 -n %{name}-%{version}
 sed -i 's|default_background.jpg|default.png|' widgets/fullscreenbackground.cpp
 sed -i 's|lib|libexec|' \
     misc/applications/deepin-toggle-desktop.desktop* \
@@ -87,6 +88,9 @@ sed -i "s|#greeter-session.*|greeter-session=lightdm-deepin-greeter|g" /etc/ligh
 %{_prefix}/share/glib-2.0/schemas/com.deepin.dde.dock.module.notifications.gschema.xml
 
 %changelog
+* Tue Sep 23 2021 weidong <weidong@uniontech.com> - 5.3.0.11-2
+- Fix wm-chooser error in openeuler
+
 * Tue Jul 20 2021 weidong <weidong@uniontech.com> - 5.3.0.11-1
 - Update 5.3.0.11
 
