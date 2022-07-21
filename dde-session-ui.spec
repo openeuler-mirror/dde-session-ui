@@ -1,11 +1,13 @@
 Name:           dde-session-ui
-Version:        5.3.0.11
-Release:        2
+Version:        5.4.24.2
+Release:        1
 Summary:        Deepin desktop-environment - Session UI module
 License:        GPLv3
 URL:            https://github.com/linuxdeepin/%{name}
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
-Patch0:		0001-Fix-wm-chooser-error-in-openeuler.patch	
+Source1:        vendor.tar.gz
+
+Patch0:         0001-Fix-wm-chooser-error-in-openeuler.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  deepin-gettext-tools
@@ -44,7 +46,7 @@ This project include those sub-project:
 - dde-hotzone: User interface of setting hot zone.
 
 %prep
-%autosetup -p1 -n %{name}-%{version}
+%autosetup -p1
 sed -i 's|default_background.jpg|default.png|' widgets/fullscreenbackground.cpp
 sed -i 's|lib|libexec|' \
     misc/applications/deepin-toggle-desktop.desktop* \
@@ -64,7 +66,10 @@ sed -i 's|lib|libexec|' \
     dde-lowpower/dde-lowpower.pro
 sed -i 's|/usr/lib/dde-dock|/usr/lib64/dde-dock|' dde-notification-plugin/notifications/notifications.pro
 
+tar -xf %{SOURCE1}
+
 %build
+export GOPATH=%{_builddir}/%{name}-%{version}/vendor:$GOPATH
 export PATH=%{_qt5_bindir}:$PATH
 %qmake_qt5 PREFIX=%{_prefix} PKGTYPE=rpm
 %make_build
@@ -88,6 +93,9 @@ sed -i "s|#greeter-session.*|greeter-session=lightdm-deepin-greeter|g" /etc/ligh
 %{_prefix}/share/glib-2.0/schemas/com.deepin.dde.dock.module.notifications.gschema.xml
 
 %changelog
+* Mon Jul 18 2022 konglidong <konglidong@uniontech.com> - 5.4.24.2-1
+- Update to 5.4.24.2
+
 * Thu Sep 23 2021 weidong <weidong@uniontech.com> - 5.3.0.11-2
 - Fix wm-chooser error in openeuler
 
