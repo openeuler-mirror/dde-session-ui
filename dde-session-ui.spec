@@ -1,5 +1,5 @@
 Name:           dde-session-ui
-Version:        5.4.24.2
+Version:        5.4.35.2
 Release:        1
 Summary:        Deepin desktop-environment - Session UI module
 License:        GPLv3
@@ -60,7 +60,6 @@ sed -i 's|lib|libexec|' \
     dde-touchscreen-dialog/dde-touchscreen-dialog.pro \
     dde-warning-dialog/com.deepin.dde.WarningDialog.service \
     dde-warning-dialog/dde-warning-dialog.pro \
-    dde-offline-upgrader/dde-offline-upgrader.pro \
     dde-suspend-dialog/dde-suspend-dialog.pro \
     dnetwork-secret-dialog/dnetwork-secret-dialog.pro \
     dde-lowpower/dde-lowpower.pro
@@ -93,6 +92,9 @@ sed -i "s|#greeter-session.*|greeter-session=lightdm-deepin-greeter|g" /etc/ligh
 %{_prefix}/share/glib-2.0/schemas/com.deepin.dde.dock.module.notifications.gschema.xml
 
 %changelog
+* Thu Mar 30 2023 liweiganga <liweiganga@uniontech.com> - 5.4.35.2-1
+- update: update to 5.4.35.2
+
 * Mon Jul 18 2022 konglidong <konglidong@uniontech.com> - 5.4.24.2-1
 - Update to 5.4.24.2
 
